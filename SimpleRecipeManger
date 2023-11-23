@@ -66,6 +66,29 @@ def update_recipe_list():
     for recipe_name in recipes:
         recipe_list.insert(tk.END, recipe_name)
 
+def delete_recipe():
+    recipe_name = recipe_list.get(tk.ACTIVE)  
+    if recipe_name:
+        recipe_details = recipes.get(recipe_name)
+        if recipe_details:
+            confirm = messagebox.askyesno(
+            "Confirm Deletion", f"Do you want to delete the recipe '{recipe_name}'?")
+            if confirm:
+                del recipes[recipe_name]
+                del_from_database()
+                update_recipe_list()
+        else:
+            messagebox.showerror("Error", "Recipe not found.")
+    else:
+        messagebox.showerror("Error", "Please select a recipe to view.")
+
+def del_from_database():
+    with open("Recipe_database.json", "r") as data_file:
+        data = json.load(data_file)
+    data = recipes
+    with open("Recipe_database.json", "w") as data_file:
+        json.dump(data, data_file, indent=4)
+
 def import_recipes():
     file_path = filedialog.askopenfilename(
         filetypes=[("JSON files", "*.json")])
@@ -110,7 +133,7 @@ except FileNotFoundError:
 add_button = ttk.Button(root, text="Add Recipe", command=add_recipe)
 view_button = ttk.Button(root, text="View Recipe")
 edit_button = ttk.Button(root, text="Edit Recipe")
-delete_button = ttk.Button(root, text="Delete Recipe")
+delete_button = ttk.Button(root, text="Delete Recipe", command=delete_recipe)
 export_button = ttk.Button(root, text="Export Recipes")
 import_button = ttk.Button(root, text="Import Recipes", command=import_recipes)
 view_button.pack(pady=5)
