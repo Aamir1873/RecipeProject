@@ -20,6 +20,14 @@ def fileReader():
         if len(recipes) != 0:
             return recipes
             
+# Load initial data if available (e.g., from a JSON file)
+try:
+    with open("test.json", "r") as file:
+        recipes = json.load(file)
+        if len(recipes) != 0:
+            update_recipe_list()
+except FileNotFoundError:
+    pass
 
 # Apply the theme to the entire program
 root.tk.call("ttk::style", "theme", "use", "azure-light")
