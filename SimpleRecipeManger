@@ -13,6 +13,14 @@ root.geometry("600x700")
 root.tk.call("source", "azure.tcl")
 root.tk.call("set_theme", "light")
 
+#reads json
+def fileReader():
+    with open("test.json", "r") as file:
+        recipes = json.load(file)
+        if len(recipes) != 0:
+            return recipes
+            
+
 # Apply the theme to the entire program
 root.tk.call("ttk::style", "theme", "use", "azure-light")
 root.mainloop()
