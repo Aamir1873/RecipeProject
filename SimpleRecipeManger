@@ -99,7 +99,7 @@ def fileReader():
             
 # Load initial data if available (e.g., from a JSON file)
 try:
-    with open("test.json", "r") as file:
+    with open("Recipe_database.json", "r") as file:
         recipes = json.load(file)
         if len(recipes) != 0:
             update_recipe_list()
