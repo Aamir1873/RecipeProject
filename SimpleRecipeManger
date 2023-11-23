@@ -14,6 +14,16 @@ def update_recipe_list():
     for recipe_name in recipes:
         recipe_list.insert(tk.END, recipe_name)
 
+def import_recipes():
+    file_path = filedialog.askopenfilename(
+        filetypes=[("JSON files", "*.json")])
+    if file_path:
+        with open(file_path, 'r') as file:
+            loaded_recipes = json.load(file)
+            recipes.update(loaded_recipes)
+            update_recipe_list()
+        messagebox.showinfo("Success", "Recipes imported from JSON file.")
+
 # Create the main window
 root = tk.Tk()
 root.title("Recipe Management System")
