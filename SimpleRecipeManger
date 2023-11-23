@@ -6,12 +6,54 @@ from tkinter import ttk
 # Initialize an empty recipe dictionary to store data in memory
 recipes = {}
 
+# Function to update the recipe list in the GUI
+
+
+def update_recipe_list():
+    recipe_list.delete(0, tk.END)
+    for recipe_name in recipes:
+        recipe_list.insert(tk.END, recipe_name)
+
+def import_recipes():
+    file_path = filedialog.askopenfilename(
+        filetypes=[("JSON files", "*.json")])
+    if file_path:
+        with open(file_path, 'r') as file:
+            loaded_recipes = json.load(file)
+            recipes.update(loaded_recipes)
+            update_recipe_list()
+        messagebox.showinfo("Success", "Recipes imported from JSON file.")
+
 # Create the main window
 root = tk.Tk()
 root.title("Recipe Management System")
 root.geometry("600x700")
 root.tk.call("source", "azure.tcl")
 root.tk.call("set_theme", "light")
+
+
+# Create a listbox to display recipes
+recipe_label = ttk.Label(root, text="Recipes List")
+recipe_label.pack()
+recipe_list = tk.Listbox(root, height=20, width=60)
+recipe_list.pack()
+
+#reads json
+def fileReader():
+    with open("test.json", "r") as file:
+        recipes = json.load(file)
+        if len(recipes) != 0:
+            return recipes
+            
+# Load initial data if available (e.g., from a JSON file)
+try:
+    with open("test.json", "r") as file:
+        recipes = json.load(file)
+        if len(recipes) != 0:
+            update_recipe_list()
+except FileNotFoundError:
+    pass
+
 
 # Apply the theme to the entire program
 root.tk.call("ttk::style", "theme", "use", "azure-light")
