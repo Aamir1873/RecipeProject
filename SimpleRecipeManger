@@ -15,3 +15,4 @@ root.tk.call("set_theme", "light")
 
 # Apply the theme to the entire program
 root.tk.call("ttk::style", "theme", "use", "azure-light")
+root.mainloop()
