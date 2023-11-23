@@ -83,10 +83,10 @@ def delete_recipe():
         messagebox.showerror("Error", "Please select a recipe to view.")
 
 def del_from_database():
-    with open("test.json", "r") as data_file:
+    with open("Recipe_database.json", "r") as data_file:
         data = json.load(data_file)
     data = recipes
-    with open("test.json", "w") as data_file:
+    with open("Recipe_database.json", "w") as data_file:
         json.dump(data, data_file, indent=4)
 
 def import_recipes():
@@ -133,7 +133,7 @@ except FileNotFoundError:
 add_button = ttk.Button(root, text="Add Recipe", command=add_recipe)
 view_button = ttk.Button(root, text="View Recipe")
 edit_button = ttk.Button(root, text="Edit Recipe")
-delete_button = ttk.Button(root, text="Delete Recipe")
+delete_button = ttk.Button(root, text="Delete Recipe", command=delete_recipe)
 export_button = ttk.Button(root, text="Export Recipes")
 import_button = ttk.Button(root, text="Import Recipes", command=import_recipes)
 view_button.pack(pady=5)
