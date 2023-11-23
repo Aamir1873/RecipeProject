@@ -6,12 +6,36 @@ from tkinter import ttk
 # Initialize an empty recipe dictionary to store data in memory
 recipes = {}
 
+# Function to update the recipe list in the GUI
+
+
+def update_recipe_list():
+    recipe_list.delete(0, tk.END)
+    for recipe_name in recipes:
+        recipe_list.insert(tk.END, recipe_name)
+
 # Create the main window
 root = tk.Tk()
 root.title("Recipe Management System")
 root.geometry("600x700")
 root.tk.call("source", "azure.tcl")
 root.tk.call("set_theme", "light")
+
+#reads json
+def fileReader():
+    with open("test.json", "r") as file:
+        recipes = json.load(file)
+        if len(recipes) != 0:
+            return recipes
+            
+# Load initial data if available (e.g., from a JSON file)
+try:
+    with open("test.json", "r") as file:
+        recipes = json.load(file)
+        if len(recipes) != 0:
+            update_recipe_list()
+except FileNotFoundError:
+    pass
 
 # Apply the theme to the entire program
 root.tk.call("ttk::style", "theme", "use", "azure-light")
