@@ -1,0 +1,7 @@
+import tkinter as tk
+from tkinter import messagebox, simpledialog, filedialog
+import json
+from tkinter import ttk
+
+# Initialize an empty recipe dictionary to store data in memory
+recipes = {}
