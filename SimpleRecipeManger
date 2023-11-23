@@ -5,3 +5,14 @@ from tkinter import ttk
 
 # Initialize an empty recipe dictionary to store data in memory
 recipes = {}
+
+# Create the main window
+root = tk.Tk()
+root.title("Recipe Management System")
+root.geometry("600x700")
+root.tk.call("source", "azure.tcl")
+root.tk.call("set_theme", "light")
+
+# Apply the theme to the entire program
+root.tk.call("ttk::style", "theme", "use", "azure-light")
+root.mainloop()
