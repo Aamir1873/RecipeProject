@@ -6,8 +6,60 @@ from tkinter import ttk
 # Initialize an empty recipe dictionary to store data in memory
 recipes = {}
 
-# Function to update the recipe list in the GUI
+# Function to add a new recipe
+def open_form():
+    def submit_form():
+        recipe_name = recipe_name_entry.get()
+        ingredients = ingredients_entry.get("1.0", tk.END).strip()
+        instructions = instructions_entry.get("1.0", tk.END).strip()
+        rating = rating_entry.get()
 
+        if recipe_name and ingredients and instructions and rating:
+            recipes[recipe_name] = {
+                "recipe_name": recipe_name,
+                "ingredients": ingredients,
+                "instructions": instructions,
+                "rating": int(rating)
+            }
+            update_recipe_list()
+            res = recipes[recipe_name]
+            add_to_database(res)
+            form_window.destroy()
+
+    form_window = tk.Toplevel()
+    form_window.title("Recipe Form")
+    form_window.geometry("600x400")
+
+    recipe_name_label = tk.Label(form_window, text="Recipe Name:")
+    recipe_name_label.pack()
+    recipe_name_entry = tk.Entry(form_window)
+    recipe_name_entry.pack()
+
+    ingredients_frame = tk.Frame(form_window, highlightbackground="gray", highlightthickness=1)
+    ingredients_frame.pack(pady=5)
+    ingredients_label = tk.Label(ingredients_frame, text="Ingredients:")
+    ingredients_label.pack()
+    ingredients_entry = tk.Text(ingredients_frame, height=5, width=40, bd=0)
+    ingredients_entry.pack()
+
+    instructions_frame = tk.Frame(form_window, highlightbackground="gray", highlightthickness=1)
+    instructions_frame.pack(pady=5)
+    instructions_label = tk.Label(instructions_frame, text="Instructions:")
+    instructions_label.pack()
+    instructions_entry = tk.Text(instructions_frame, height=5, width=40, bd=0)
+    instructions_entry.pack()
+
+    rating_label = tk.Label(form_window, text="Rating (1-5):")
+    rating_label.pack()
+    rating_entry = tk.Entry(form_window)
+    rating_entry.pack()
+
+    submit_button = tk.Button(form_window, text="Submit", command=submit_form)
+    submit_button.pack()
+
+# Function to update the recipe list in the GUI
+def add_recipe():
+    open_form()
 
 def update_recipe_list():
     recipe_list.delete(0, tk.END)
@@ -54,7 +106,8 @@ try:
 except FileNotFoundError:
     pass
 
-
+add_button = ttk.Button(root, text="Add Recipe", command=add_recipe)
+add_button.pack(pady=5)
 # Apply the theme to the entire program
 root.tk.call("ttk::style", "theme", "use", "azure-light")
 root.mainloop()
