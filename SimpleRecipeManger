@@ -167,7 +167,7 @@ except FileNotFoundError:
 # Create buttons for various actions
 add_button = ttk.Button(root, text="Add Recipe", command=add_recipe)
 view_button = ttk.Button(root, text="View Recipe")
-edit_button = ttk.Button(root, text="Edit Recipe")
+edit_button = ttk.Button(root, text="Edit Recipe", command=edit_recipe)
 delete_button = ttk.Button(root, text="Delete Recipe", command=delete_recipe)
 export_button = ttk.Button(root, text="Export Recipes", command=export_recipes)
 import_button = ttk.Button(root, text="Import Recipes", command=import_recipes)
