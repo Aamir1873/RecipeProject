@@ -7,7 +7,7 @@ from tkinter import ttk
 recipes = {}
 
 # Function to add a new recipe
-def open_form(recipe=None):
+def open_form(recipe=None, edit=False):
     def submit_form():
         recipe_name = recipe_name_entry.get()
         ingredients = ingredients_entry.get("1.0", tk.END).strip()
@@ -27,8 +27,13 @@ def open_form(recipe=None):
             form_window.destroy()
 
     form_window = tk.Toplevel()
-    form_window.title("Recipe Form")
-    form_window.geometry("600x400")
+    if (recipe == None):
+        form_window.title("Add Recipe Form")
+    elif (edit == False):
+        form_window.title("View Recipe Form")
+    else:
+        form_window.title("Edit Recipe Form")
+    form_window.geometry("600x500")
 
     recipe_name_label = tk.Label(form_window, text="Recipe Name:")
     recipe_name_label.pack()
@@ -39,14 +44,14 @@ def open_form(recipe=None):
     ingredients_frame.pack(pady=5)
     ingredients_label = tk.Label(ingredients_frame, text="Ingredients:")
     ingredients_label.pack()
-    ingredients_entry = tk.Text(ingredients_frame, height=5, width=40, bd=0)
+    ingredients_entry = tk.Text(ingredients_frame, height=10, width=50, bd=0)
     ingredients_entry.pack()
 
     instructions_frame = tk.Frame(form_window, highlightbackground="gray", highlightthickness=1)
     instructions_frame.pack(pady=5)
     instructions_label = tk.Label(instructions_frame, text="Instructions:")
     instructions_label.pack()
-    instructions_entry = tk.Text(instructions_frame, height=5, width=40, bd=0)
+    instructions_entry = tk.Text(instructions_frame, height=10, width=50, bd=0)
     instructions_entry.pack()
 
     rating_label = tk.Label(form_window, text="Rating (1-5):")
@@ -65,11 +70,15 @@ def open_form(recipe=None):
         rating_entry.insert(tk.END, recipe["rating"])
 
         # Disable editing for viewing an existing recipe
-        recipe_name_entry.config(state='disabled')
-        ingredients_entry.config(state='disabled')
-        instructions_entry.config(state='disabled')
-        rating_entry.config(state='disabled')
-        submit_button.config(state='disabled')
+        if (edit == False):
+            recipe_name_entry.config(state='disabled')
+            ingredients_entry.config(state='disabled')
+            instructions_entry.config(state='disabled')
+            rating_entry.config(state='disabled')
+            submit_button.config(state='disabled')
+        #else only recipe name is disabled
+        elif (edit == True):
+            recipe_name_entry.config(state='disabled')
 
 # Function to load recipes from a JSON file
 def add_to_database(res):
@@ -88,33 +97,19 @@ def update_recipe_list():
     recipe_list.delete(0, tk.END)
     for recipe_name in recipes:
         recipe_list.insert(tk.END, recipe_name)
-# Function takes to edit recipe but need fixes
+
+#edit function works similar to view and add recipe
 def edit_recipe():
-    recipe_name = simpledialog.askstring(
-        "Recipe Name", "Enter the recipe name to edit:")
-    if recipe_name in recipes:
-        ingredients = simpledialog.askstring(
-            "Ingredients", "Enter the new ingredients:", initialvalue=recipes[recipe_name]["ingredients"])
-        instructions = simpledialog.askstring(
-            "Instructions", "Enter the new instructions:", initialvalue=recipes[recipe_name]["instructions"])
-        category = simpledialog.askstring(
-            "Category", "Enter the new category:", initialvalue=recipes[recipe_name]["category"])
-        rating = simpledialog.askinteger(
-            "Rating", "Enter the new rating (1-5):", initialvalue=recipes[recipe_name]["rating"])
-
-        if rating is not None:
-            recipes[recipe_name] = {
-                "ingredients": ingredients,
-                "instructions": instructions,
-                "rating": rating
-            }
-            update_recipe_list()
-
+    selected_recipe = recipe_list.get(tk.ACTIVE)  
+    if selected_recipe:
+        recipe_details = recipes.get(selected_recipe)
+        if recipe_details:
+            open_form(recipe_details,True)
         else:
-            messagebox.showerror(
-                "Error", "Invalid rating value. Please enter a number between 1 and 5.")
+            messagebox.showerror("Error", "Recipe details not found.")
     else:
-        messagebox.showerror("Error", "Recipe not found.")
+        messagebox.showerror("Error", "Please select a recipe to view.")
+
 #function to view the recipe (one you clicked)
 def view_recipe():
     selected_recipe = recipe_list.get(tk.ACTIVE) 
