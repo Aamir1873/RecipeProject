@@ -23,7 +23,7 @@ def open_form(recipe=None):
             }
             update_recipe_list()
             res = recipes[recipe_name]
-            # add_to_database(res)
+            add_to_database(res)
             form_window.destroy()
 
     form_window = tk.Toplevel()
@@ -70,6 +70,15 @@ def open_form(recipe=None):
         instructions_entry.config(state='disabled')
         rating_entry.config(state='disabled')
         submit_button.config(state='disabled')
+
+# Function to load recipes from a JSON file
+def add_to_database(res):
+    print(res)
+    with open("Recipe_database.json", "r") as data_file:
+        data = json.load(data_file)
+    data[res["recipe_name"]] = res
+    with open("Recipe_database.json", "w") as data_file:
+        json.dump(data, data_file, indent=4)
 
 # Function takes to form to add recipe
 def add_recipe():
