@@ -7,7 +7,7 @@ from tkinter import ttk
 recipes = {}
 
 # Function to add a new recipe
-def open_form():
+def open_form(recipe=None):
     def submit_form():
         recipe_name = recipe_name_entry.get()
         ingredients = ingredients_entry.get("1.0", tk.END).strip()
@@ -57,15 +57,29 @@ def open_form():
     submit_button = tk.Button(form_window, text="Submit", command=submit_form)
     submit_button.pack()
 
-# Function to update the recipe list in the GUI
+    #basically for viewing
+    if recipe:  
+        recipe_name_entry.insert(tk.END, recipe["recipe_name"])
+        ingredients_entry.insert(tk.END, recipe["ingredients"])
+        instructions_entry.insert(tk.END, recipe["instructions"])
+        rating_entry.insert(tk.END, recipe["rating"])
+
+        # Disable editing for viewing an existing recipe
+        recipe_name_entry.config(state='disabled')
+        ingredients_entry.config(state='disabled')
+        instructions_entry.config(state='disabled')
+        rating_entry.config(state='disabled')
+        submit_button.config(state='disabled')
+
+# Function takes to form to add recipe
 def add_recipe():
     open_form()
-
+# Function to update the recipe list in the GUI
 def update_recipe_list():
     recipe_list.delete(0, tk.END)
     for recipe_name in recipes:
         recipe_list.insert(tk.END, recipe_name)
-
+# Function takes to edit recipe but need fixes
 def edit_recipe():
     recipe_name = simpledialog.askstring(
         "Recipe Name", "Enter the recipe name to edit:")
@@ -92,7 +106,18 @@ def edit_recipe():
                 "Error", "Invalid rating value. Please enter a number between 1 and 5.")
     else:
         messagebox.showerror("Error", "Recipe not found.")
-
+#function to view the recipe (one you clicked)
+def view_recipe():
+    selected_recipe = recipe_list.get(tk.ACTIVE) 
+    if selected_recipe:
+        recipe_details = recipes.get(selected_recipe)
+        if recipe_details:
+            open_form(recipe_details)
+        else:
+            messagebox.showerror("Error", "Recipe details not found.")
+    else:
+        messagebox.showerror("Error", "Please select a recipe to view.")
+#deleting from local dictionary
 def delete_recipe():
     recipe_name = recipe_list.get(tk.ACTIVE)  
     if recipe_name:
@@ -108,14 +133,14 @@ def delete_recipe():
             messagebox.showerror("Error", "Recipe not found.")
     else:
         messagebox.showerror("Error", "Please select a recipe to view.")
-
+#deleting from json file
 def del_from_database():
     with open("Recipe_database.json", "r") as data_file:
         data = json.load(data_file)
     data = recipes
     with open("Recipe_database.json", "w") as data_file:
         json.dump(data, data_file, indent=4)
-
+#exports all recipes
 def export_recipes():
     file_path = filedialog.asksaveasfilename(
         defaultextension=".json", filetypes=[("JSON files", "*.json")])
@@ -123,7 +148,7 @@ def export_recipes():
         with open(file_path, 'w') as file:
             json.dump(recipes, file, indent=4)
         messagebox.showinfo("Success", "Recipes exported to JSON file.")
-
+#imports recipes 
 def import_recipes():
     file_path = filedialog.askopenfilename(
         filetypes=[("JSON files", "*.json")])
@@ -166,7 +191,7 @@ except FileNotFoundError:
 
 # Create buttons for various actions
 add_button = ttk.Button(root, text="Add Recipe", command=add_recipe)
-view_button = ttk.Button(root, text="View Recipe")
+view_button = ttk.Button(root, text="View Recipe", command=view_recipe)
 edit_button = ttk.Button(root, text="Edit Recipe", command=edit_recipe)
 delete_button = ttk.Button(root, text="Delete Recipe", command=delete_recipe)
 export_button = ttk.Button(root, text="Export Recipes", command=export_recipes)
