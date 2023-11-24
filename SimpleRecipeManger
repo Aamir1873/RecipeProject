@@ -66,6 +66,64 @@ def update_recipe_list():
     for recipe_name in recipes:
         recipe_list.insert(tk.END, recipe_name)
 
+def edit_recipe():
+    recipe_name = simpledialog.askstring(
+        "Recipe Name", "Enter the recipe name to edit:")
+    if recipe_name in recipes:
+        ingredients = simpledialog.askstring(
+            "Ingredients", "Enter the new ingredients:", initialvalue=recipes[recipe_name]["ingredients"])
+        instructions = simpledialog.askstring(
+            "Instructions", "Enter the new instructions:", initialvalue=recipes[recipe_name]["instructions"])
+        category = simpledialog.askstring(
+            "Category", "Enter the new category:", initialvalue=recipes[recipe_name]["category"])
+        rating = simpledialog.askinteger(
+            "Rating", "Enter the new rating (1-5):", initialvalue=recipes[recipe_name]["rating"])
+
+        if rating is not None:
+            recipes[recipe_name] = {
+                "ingredients": ingredients,
+                "instructions": instructions,
+                "rating": rating
+            }
+            update_recipe_list()
+
+        else:
+            messagebox.showerror(
+                "Error", "Invalid rating value. Please enter a number between 1 and 5.")
+    else:
+        messagebox.showerror("Error", "Recipe not found.")
+
+def delete_recipe():
+    recipe_name = recipe_list.get(tk.ACTIVE)  
+    if recipe_name:
+        recipe_details = recipes.get(recipe_name)
+        if recipe_details:
+            confirm = messagebox.askyesno(
+            "Confirm Deletion", f"Do you want to delete the recipe '{recipe_name}'?")
+            if confirm:
+                del recipes[recipe_name]
+                del_from_database()
+                update_recipe_list()
+        else:
+            messagebox.showerror("Error", "Recipe not found.")
+    else:
+        messagebox.showerror("Error", "Please select a recipe to view.")
+
+def del_from_database():
+    with open("Recipe_database.json", "r") as data_file:
+        data = json.load(data_file)
+    data = recipes
+    with open("Recipe_database.json", "w") as data_file:
+        json.dump(data, data_file, indent=4)
+
+def export_recipes():
+    file_path = filedialog.asksaveasfilename(
+        defaultextension=".json", filetypes=[("JSON files", "*.json")])
+    if file_path:
+        with open(file_path, 'w') as file:
+            json.dump(recipes, file, indent=4)
+        messagebox.showinfo("Success", "Recipes exported to JSON file.")
+
 def import_recipes():
     file_path = filedialog.askopenfilename(
         filetypes=[("JSON files", "*.json")])
@@ -92,7 +150,7 @@ recipe_list.pack()
 
 #reads json
 def fileReader():
-    with open("test.json", "r") as file:
+    with open("Recipe_database.json", "r") as file:
         recipes = json.load(file)
         if len(recipes) != 0:
             return recipes
@@ -109,9 +167,9 @@ except FileNotFoundError:
 # Create buttons for various actions
 add_button = ttk.Button(root, text="Add Recipe", command=add_recipe)
 view_button = ttk.Button(root, text="View Recipe")
-edit_button = ttk.Button(root, text="Edit Recipe")
-delete_button = ttk.Button(root, text="Delete Recipe")
-export_button = ttk.Button(root, text="Export Recipes")
+edit_button = ttk.Button(root, text="Edit Recipe", command=edit_recipe)
+delete_button = ttk.Button(root, text="Delete Recipe", command=delete_recipe)
+export_button = ttk.Button(root, text="Export Recipes", command=export_recipes)
 import_button = ttk.Button(root, text="Import Recipes", command=import_recipes)
 view_button.pack(pady=5)
 add_button.pack(pady=5)
