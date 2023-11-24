@@ -89,6 +89,14 @@ def del_from_database():
     with open("Recipe_database.json", "w") as data_file:
         json.dump(data, data_file, indent=4)
 
+def export_recipes():
+    file_path = filedialog.asksaveasfilename(
+        defaultextension=".json", filetypes=[("JSON files", "*.json")])
+    if file_path:
+        with open(file_path, 'w') as file:
+            json.dump(recipes, file, indent=4)
+        messagebox.showinfo("Success", "Recipes exported to JSON file.")
+
 def import_recipes():
     file_path = filedialog.askopenfilename(
         filetypes=[("JSON files", "*.json")])
@@ -115,7 +123,7 @@ recipe_list.pack()
 
 #reads json
 def fileReader():
-    with open("test.json", "r") as file:
+    with open("Recipe_database.json", "r") as file:
         recipes = json.load(file)
         if len(recipes) != 0:
             return recipes
@@ -134,7 +142,7 @@ add_button = ttk.Button(root, text="Add Recipe", command=add_recipe)
 view_button = ttk.Button(root, text="View Recipe")
 edit_button = ttk.Button(root, text="Edit Recipe")
 delete_button = ttk.Button(root, text="Delete Recipe", command=delete_recipe)
-export_button = ttk.Button(root, text="Export Recipes")
+export_button = ttk.Button(root, text="Export Recipes", command=export_recipes)
 import_button = ttk.Button(root, text="Import Recipes", command=import_recipes)
 view_button.pack(pady=5)
 add_button.pack(pady=5)
