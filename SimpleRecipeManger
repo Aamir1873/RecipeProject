@@ -66,6 +66,33 @@ def update_recipe_list():
     for recipe_name in recipes:
         recipe_list.insert(tk.END, recipe_name)
 
+def edit_recipe():
+    recipe_name = simpledialog.askstring(
+        "Recipe Name", "Enter the recipe name to edit:")
+    if recipe_name in recipes:
+        ingredients = simpledialog.askstring(
+            "Ingredients", "Enter the new ingredients:", initialvalue=recipes[recipe_name]["ingredients"])
+        instructions = simpledialog.askstring(
+            "Instructions", "Enter the new instructions:", initialvalue=recipes[recipe_name]["instructions"])
+        category = simpledialog.askstring(
+            "Category", "Enter the new category:", initialvalue=recipes[recipe_name]["category"])
+        rating = simpledialog.askinteger(
+            "Rating", "Enter the new rating (1-5):", initialvalue=recipes[recipe_name]["rating"])
+
+        if rating is not None:
+            recipes[recipe_name] = {
+                "ingredients": ingredients,
+                "instructions": instructions,
+                "rating": rating
+            }
+            update_recipe_list()
+
+        else:
+            messagebox.showerror(
+                "Error", "Invalid rating value. Please enter a number between 1 and 5.")
+    else:
+        messagebox.showerror("Error", "Recipe not found.")
+
 def delete_recipe():
     recipe_name = recipe_list.get(tk.ACTIVE)  
     if recipe_name:
@@ -140,7 +167,7 @@ except FileNotFoundError:
 # Create buttons for various actions
 add_button = ttk.Button(root, text="Add Recipe", command=add_recipe)
 view_button = ttk.Button(root, text="View Recipe")
-edit_button = ttk.Button(root, text="Edit Recipe")
+edit_button = ttk.Button(root, text="Edit Recipe", command=edit_recipe)
 delete_button = ttk.Button(root, text="Delete Recipe", command=delete_recipe)
 export_button = ttk.Button(root, text="Export Recipes", command=export_recipes)
 import_button = ttk.Button(root, text="Import Recipes", command=import_recipes)
