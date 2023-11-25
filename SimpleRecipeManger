@@ -170,6 +170,13 @@ root.geometry("600x700")
 root.tk.call("source", "azure.tcl")
 root.tk.call("set_theme", "light")
 
+
+# Create a listbox to display recipes
+recipe_label = ttk.Label(root, text="Recipes List")
+recipe_label.pack()
+recipe_list = tk.Listbox(root, height=20, width=60)
+recipe_list.pack()
+
 #reads json
 def fileReader():
     with open("Recipe_database.json", "r") as file:
@@ -204,4 +211,3 @@ import_button.pack(pady=5)
 # Apply the theme to the entire program
 root.tk.call("ttk::style", "theme", "use", "azure-light")
 root.mainloop()
-
