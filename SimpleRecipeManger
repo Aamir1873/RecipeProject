@@ -162,6 +162,10 @@ def import_recipes():
             recipes.update(loaded_recipes)
             update_recipe_list()
         messagebox.showinfo("Success", "Recipes imported from JSON file.")
+        
+#create exit function to exit the app
+def exit_app():
+    root.destroy()
 
 # Create the main window
 root = tk.Tk()
