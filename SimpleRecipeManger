@@ -21,6 +21,25 @@ root.geometry("600x700")
 root.tk.call("source", "azure.tcl")
 root.tk.call("set_theme", "light")
 
+#create GUI elemnts
+add_button = tk.Button(root, text="Add Recipe", command=add_recipe)
+add_button.grid(row=5, column=0, padx=5, pady=10)
+
+edit_button = tk.Button(root, text="Edit Recipe", command=edit_recipe)
+edit_button.grid(row=5, column=1, padx=5, pady=10)
+
+delete_button = tk.Button(root, text="Delete Recipe", command=delete_recipe)
+delete_button.grid(row=5, column=2, padx=5, pady=10)
+
+export_button = tk.Button(root, text="Export Recipes", command=export_recipes)
+export_button.grid(row=6, column=0, padx=5, pady=10)
+
+import_button = tk.Button(root, text="Import Recipes", command=import_recipes)
+import_button.grid(row=6, column=1, padx=5, pady=10)
+
+view_button = tk.Button(root, text="View Recipes", command=view_recipes)
+view_button.grid(row=6, column=2, padx=5, pady=10)
+
 #reads json
 def fileReader():
     with open("test.json", "r") as file:
@@ -40,3 +59,4 @@ except FileNotFoundError:
 # Apply the theme to the entire program
 root.tk.call("ttk::style", "theme", "use", "azure-light")
 root.mainloop()
+
