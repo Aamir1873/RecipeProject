@@ -204,12 +204,14 @@ edit_button = ttk.Button(root, text="Edit Recipe", command=edit_recipe)
 delete_button = ttk.Button(root, text="Delete Recipe", command=delete_recipe)
 export_button = ttk.Button(root, text="Export Recipes", command=export_recipes)
 import_button = ttk.Button(root, text="Import Recipes", command=import_recipes)
+exit_button = ttk.Button(root, text="Exit", command=exit_app)
 view_button.pack(pady=5)
 add_button.pack(pady=5)
 edit_button.pack(pady=5)
 delete_button.pack(pady=5)
 export_button.pack(pady=5)
 import_button.pack(pady=5)
+exit_button.psck(pady=5)
 
 
 # Apply the theme to the entire program
