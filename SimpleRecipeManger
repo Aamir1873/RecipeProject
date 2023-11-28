@@ -19,6 +19,7 @@ def open_form(recipe=None, edit=False):
                 "recipe_name": recipe_name,
                 "ingredients": ingredients,
                 "instructions": instructions,
+                "category": category,
                 "rating": int(rating)
             }
             update_recipe_list()
@@ -53,6 +54,13 @@ def open_form(recipe=None, edit=False):
     instructions_label.pack()
     instructions_entry = tk.Text(instructions_frame, height=10, width=50, bd=0)
     instructions_entry.pack()
+    
+    category_frame = tk.Frame(form_window, highlightbackground="gray", highlightthickness=1)
+    category_frame.pack(pady=5)
+    category_label = tk.Label(category_frame, text="category:")
+    category_label.pack()
+    category_entry = tk.Text(category_frame, height=10, width=50, bd=0)
+    category_entry.pack()
 
     rating_label = tk.Label(form_window, text="Rating (1-5):")
     rating_label.pack()
@@ -67,6 +75,7 @@ def open_form(recipe=None, edit=False):
         recipe_name_entry.insert(tk.END, recipe["recipe_name"])
         ingredients_entry.insert(tk.END, recipe["ingredients"])
         instructions_entry.insert(tk.END, recipe["instructions"])
+        category_entry.insert(tk.END, recipe["category"])
         rating_entry.insert(tk.END, recipe["rating"])
 
         # Disable editing for viewing an existing recipe
@@ -74,6 +83,7 @@ def open_form(recipe=None, edit=False):
             recipe_name_entry.config(state='disabled')
             ingredients_entry.config(state='disabled')
             instructions_entry.config(state='disabled')
+            category_entry.config(state='disabled')
             rating_entry.config(state='disabled')
             submit_button.config(state='disabled')
         #else only recipe name is disabled
