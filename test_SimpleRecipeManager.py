@@ -51,7 +51,28 @@ class TestRecipeGUI(unittest.TestCase):
         mock_showinfo.assert_called_once()  # Ensure showinfo was called
 
         self.assertEqual(exported_recipe_count, initial_recipe_count)
-        # ...
+    
+    @patch("tkinter.filedialog.askopenfilename", return_value="./TestTemp/test_export.json")
+    @patch("tkinter.messagebox.showinfo")
+    def test_import_recipes(self, mock_showinfo, mock_file_dialog):
+        # Test importing recipes
+        self.app.recipes = {"Test Recipe":{
+            "recipe_name": "Test Recipe",
+            "ingredients": "Ingredient 1, Ingredient 2",
+            "instructions": "Step 1, Step 2",
+            "rating": 4
+        }}
+        initial_recipe_count = len(self.app.recipes)
+
+
+        # Import recipes
+        self.app.import_recipes()
+        imported_recipe_count = len(self.app.recipes)
+
+        mock_file_dialog.assert_called_once()  # Ensure file dialog was opened
+        mock_showinfo.assert_called_once()  # Ensure showinfo was called
+        self.assertNotEqual(imported_recipe_count, initial_recipe_count)
+
 
             
 
