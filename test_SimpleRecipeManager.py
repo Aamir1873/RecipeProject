@@ -29,6 +29,29 @@ class TestRecipeGUI(unittest.TestCase):
 
                 # Ensure the open_form method is called with the correct parameters
                 mock_open_form.assert_called_once_with()
+    @patch("tkinter.filedialog.asksaveasfilename", return_value="./TestTemp/test_export.json")
+    @patch("tkinter.messagebox.showinfo")
+    def test_export_recipes(self, mock_showinfo, mock_file_dialog):
+        # Test exporting recipes
+        self.app.recipes = {
+    "Guacamole": {
+        "recipe_name": "Guacamole",
+        "ingredients": "Avocado\nTomato\nOnion\nLime Juice\nSalt\nCilantro",
+        "instructions": "1. Mash avocados in a bowl. \n2. Add diced tomatoes, finely chopped onions, lime juice, salt, and chopped cilantro. \n3. Mix ingredients thoroughly. \n4. Serve with chips or use as a topping.",
+        "category": "appetizer",
+        "rating": 4
+    }}
+        initial_recipe_count = len(self.app.recipes)
+        
+
+        self.app.export_recipes()
+        exported_recipe_count = len(self.app.recipes)
+
+        mock_file_dialog.assert_called_once()  # Ensure file dialog was opened
+        mock_showinfo.assert_called_once()  # Ensure showinfo was called
+
+        self.assertEqual(exported_recipe_count, initial_recipe_count)
+        # ...
 
             
 
