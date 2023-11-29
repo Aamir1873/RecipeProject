@@ -72,6 +72,30 @@ class TestRecipeGUI(unittest.TestCase):
         mock_file_dialog.assert_called_once()  # Ensure file dialog was opened
         mock_showinfo.assert_called_once()  # Ensure showinfo was called
         self.assertNotEqual(imported_recipe_count, initial_recipe_count)
+    
+    @patch('tkinter.messagebox.askyesno', return_value=True)
+    def test_delete_recipe_successful(self, mock_askyesno):
+        # Setup initial conditions
+        self.app.recipes = {
+            "Recipe1": {
+                "recipe_name": "Recipe1",
+                "ingredients": "Ingredient1",
+                "instructions": "Step1",
+                "rating": 5
+            },
+            # Add more recipes as needed for testing scenarios
+        }
+        initial_recipe_count = len(self.app.recipes)
+
+        # Patching del_from_database method
+        with patch.object(self.app, 'del_from_database', new=MagicMock()) as mock_del_from_database:
+            # Trigger the delete_recipe method with a valid recipe
+            with patch.object(self.app.recipe_list, 'get', return_value="Recipe1"):
+                self.app.delete_recipe()
+
+        # Check if the recipe was deleted and the necessary methods were called
+        self.assertEqual(len(self.app.recipes), initial_recipe_count - 1)
+        mock_del_from_database.assert_called()  
 
 
             
