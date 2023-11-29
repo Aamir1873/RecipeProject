@@ -37,7 +37,7 @@
     "Chocolate Chip Cookies": {
         "recipe_name": "Chocolate Chip Cookies",
         "ingredients": "All-Purpose Flour\nButter\nBrown Sugar\nGranulated Sugar\nEgg\nVanilla Extract\nBaking Soda\nSalt\nChocolate Chips",
-        "instructions": "1. Preheat oven to 350°F (175°C). \n2. Cream together butter, brown sugar, and granulated sugar. \n3. Add egg and vanilla extract, mix well. \n4. In a separate bowl, whisk together flour, baking soda, and salt. \n5. Gradually add dry ingredients to the wet mixture. \n6. Stir in chocolate chips. \n7. Drop spoonfuls of dough onto a baking sheet. \n8. Bake for 10-12 minutes until edges are golden. \n9. Let cool on a wire rack.",
+        "instructions": "1. Preheat oven to 350\u00b0F (175\u00b0C). \n2. Cream together butter, brown sugar, and granulated sugar. \n3. Add egg and vanilla extract, mix well. \n4. In a separate bowl, whisk together flour, baking soda, and salt. \n5. Gradually add dry ingredients to the wet mixture. \n6. Stir in chocolate chips. \n7. Drop spoonfuls of dough onto a baking sheet. \n8. Bake for 10-12 minutes until edges are golden. \n9. Let cool on a wire rack.",
         "category": "dessert",
         "rating": 4
     },
@@ -54,5 +54,5 @@
         "instructions": "1. Preheat grill to medium-high heat. \n2. In a bowl, mix softened butter, lemon juice, minced garlic, chopped fresh herbs, salt, and black pepper. \n3. Season salmon fillets with salt and pepper. \n4. Grill salmon for 4-5 minutes per side until cooked through. \n5. Top each fillet with a spoonful of lemon-herb butter before serving.",
         "category": "main dish",
         "rating": 4
-    } 
+    }
 }
