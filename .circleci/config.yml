@@ -15,3 +15,6 @@ jobs:
       - run:
           name: run test
           command: pytest -v -cov=SimpleRecipeManager test_SimpleRecipeManager.py
+      - run:
+          name: run test2
+          command: pytest -v -cov=SimpleRecipeManager integrationtest_SimpleRecipeManager.py
