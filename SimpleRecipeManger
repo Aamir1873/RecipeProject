@@ -89,8 +89,7 @@ def open_form(recipe=None, edit=False):
         #else only recipe name is disabled
         elif (edit == True):
             recipe_name_entry.config(state='disabled')
-
-# Function to load recipes from a JSON file
+# Function to load recipes from a JSON 
 def add_to_database(res):
     print(res)
     with open("Recipe_database.json", "r") as data_file:
