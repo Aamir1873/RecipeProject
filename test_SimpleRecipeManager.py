@@ -20,16 +20,22 @@ class TestRecipeGUI(unittest.TestCase):
     def test_app_doesnt_open(self, mock_mainloop):
         mock_mainloop.assert_not_called()
     def test_add_recipe(self):
-            # Mocking the open_form method
-            with patch.object(self.app, 'open_form') as mock_open_form:
-                # Trigger the Add Recipe button
-                try:
-                    self.app.add_recipe()
-                except Exception as e:
-                    self.fail(f"Error encountered: {e}")
+        # Mocking the open_form method
+        #self.app.initialize_data()
+        new_recipe = {
+        "recipe_name": "Test Recipe",
+        "ingredients": "Ingredient 1, Ingredient 2",
+        "instructions": "Do dis, do dat, badabum bam pow",
+        "category": "test category",
+        "rating": 3
+        }
+        self.app.add_to_database(new_recipe)
+        backup_recipes = self.app.recipes
+        self.app.initialize_data()
+        self.assertIn("Test Recipe", self.app.recipes.keys())
+        with open("Recipe_database.json", "w") as data_file:
+            json.dump(backup_recipes, data_file, indent=4)
 
-                # Ensure the open_form method is called with the correct parameters
-                mock_open_form.assert_called_once_with()
     def test_add_recipe_to_database(self):
             # Mock a recipe to add to the database
             new_recipe = {
@@ -82,6 +88,7 @@ class TestRecipeGUI(unittest.TestCase):
             "recipe_name": "Test Recipe",
             "ingredients": "Ingredient 1, Ingredient 2",
             "instructions": "Step 1, Step 2",
+            "category": "test",
             "rating": 4
         }}
         initial_recipe_count = len(self.app.recipes)
@@ -94,7 +101,7 @@ class TestRecipeGUI(unittest.TestCase):
         mock_file_dialog.assert_called_once()  # Ensure file dialog was opened
         mock_showinfo.assert_called_once()  # Ensure showinfo was called
         self.assertNotEqual(imported_recipe_count, initial_recipe_count)
-    
+
     @patch('tkinter.messagebox.askyesno', return_value=True)
     def test_delete_recipe_successful(self, mock_askyesno):
         # Setup initial conditions
