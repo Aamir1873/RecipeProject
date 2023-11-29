@@ -53,7 +53,7 @@ class RecipeGUI:
             recipe_name = recipe_name_entry.get()
             ingredients = ingredients_entry.get("1.0", tk.END).strip()
             instructions = instructions_entry.get("1.0", tk.END).strip()
-            category = category_entry.get("1.0", tk.END).strip()
+            category = category_entry.get()
             rating = rating_entry.get()
             if recipe_name and ingredients and instructions and rating:
                 self.recipes[recipe_name] = {
