@@ -53,12 +53,14 @@ class RecipeGUI:
             recipe_name = recipe_name_entry.get()
             ingredients = ingredients_entry.get("1.0", tk.END).strip()
             instructions = instructions_entry.get("1.0", tk.END).strip()
+            category = category_entry.get("1.0", tk.END).strip()
             rating = rating_entry.get()
             if recipe_name and ingredients and instructions and rating:
                 self.recipes[recipe_name] = {
                     "recipe_name": recipe_name,
                     "ingredients": ingredients,
                     "instructions": instructions,
+                    "category": category,
                     "rating": int(rating)
                 }
                 self.update_recipe_list()
@@ -73,11 +75,11 @@ class RecipeGUI:
             form_window.title("View Recipe Form")
         else:
             form_window.title("Edit Recipe Form")
-        form_window.geometry("600x600")
+        form_window.geometry("600x620")
 
         recipe_name_label = tk.Label(form_window, text="Recipe Name:")
         recipe_name_label.pack()
-        recipe_name_entry = tk.Entry(form_window)
+        recipe_name_entry = ttk.Entry(form_window)
         recipe_name_entry.pack()
 
         ingredients_frame = tk.Frame(form_window, highlightbackground="gray", highlightthickness=1)
@@ -93,10 +95,15 @@ class RecipeGUI:
         instructions_label.pack()
         instructions_entry = tk.Text(instructions_frame, height=10, width=50, bd=0)
         instructions_entry.pack()
+        
+        category_label = tk.Label(form_window, text="Category:")
+        category_label.pack()
+        category_entry = ttk.Entry(form_window)
+        category_entry.pack()
 
         rating_label = tk.Label(form_window, text="Rating (1-5):")
         rating_label.pack()
-        rating_entry = tk.Entry(form_window)
+        rating_entry = ttk.Entry(form_window)
         rating_entry.pack()
 
         submit_button = ttk.Button(form_window, text="Submit", command=submit_form)
@@ -107,6 +114,7 @@ class RecipeGUI:
             recipe_name_entry.insert(tk.END, recipe["recipe_name"])
             ingredients_entry.insert(tk.END, recipe["ingredients"])
             instructions_entry.insert(tk.END, recipe["instructions"])
+            category_entry.insert(tk.END, recipe["category"])
             rating_entry.insert(tk.END, recipe["rating"])
 
             # Disable editing for viewing an existing recipe
@@ -114,6 +122,7 @@ class RecipeGUI:
                 recipe_name_entry.config(state='disabled')
                 ingredients_entry.config(state='disabled')
                 instructions_entry.config(state='disabled')
+                category_entry.config(state='disabled')
                 rating_entry.config(state='disabled')
                 submit_button.config(state='disabled')
             #else only recipe name is disabled
