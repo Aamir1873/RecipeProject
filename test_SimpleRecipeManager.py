@@ -30,8 +30,11 @@ class TestRecipeGUI(unittest.TestCase):
         "rating": 3
         }
         self.app.add_to_database(new_recipe)
+        backup_recipes = self.app.recipes
         self.app.initialize_data()
         self.assertIn("Test Recipe", self.app.recipes.keys())
+        with open("Recipe_database.json", "w") as data_file:
+            json.dump(backup_recipes, data_file, indent=4)
 
     def test_add_recipe_to_database(self):
             # Mock a recipe to add to the database
