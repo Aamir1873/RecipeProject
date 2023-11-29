@@ -102,26 +102,6 @@ class TestRecipeGUI(unittest.TestCase):
         mock_showinfo.assert_called_once()  # Ensure showinfo was called
         self.assertNotEqual(imported_recipe_count, initial_recipe_count)
 
-    # def test_delete_recipe(self):
-    #     # Mock the messagebox.askyesno function to simulate user confirmation
-    #     self.app.initialize_data()
-    #     new_recipe = {
-    #     "recipe_name": "Test Recipe",
-    #     "ingredients": "Ingredient 1, Ingredient 2",
-    #     "instructions": "Do dis, do dat, badabum bam pow",
-    #     "category": "test",
-    #     "rating": 3
-    #     }
-    #     self.app.add_to_database(new_recipe)
-    #     with patch('tkinter.messagebox.askyesno', return_value=True):
-    #         # Select a recipe to delete
-    #         self.app.recipe_list.selection_set(len(self.app.recipes)-1)
-    #         # Mocking the get method of the listbox to return the selected recipe
-    #         with patch.object(self.app.recipe_list, 'get', return_value="Test Recipe"):
-    #             self.app.delete_recipe()
-    #             self.app.initialize_data()
-    #             self.assertNotIn("Test Recipe", self.app.recipes)
-
     @patch('tkinter.messagebox.askyesno', return_value=True)
     def test_delete_recipe_successful(self, mock_askyesno):
         # Setup initial conditions
