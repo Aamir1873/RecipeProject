@@ -47,6 +47,8 @@ class TestRecipeGUI(unittest.TestCase):
                 data = json.load(data_file)
                 self.assertIn("Test Recipe", data)  # Check if the recipe name exists in the database
                 self.assertEqual(data["Test Recipe"], new_recipe)  # Check if the added recipe matches the expected one
+            with open("Recipe_database.json", "w") as data_file:
+                 json.dump(self.app.recipes, data_file, indent=4)
     
     @patch("tkinter.filedialog.asksaveasfilename", return_value="./TestTemp/test_export.json")
     @patch("tkinter.messagebox.showinfo")

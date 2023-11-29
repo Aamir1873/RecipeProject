@@ -54,12 +54,5 @@
         "instructions": "1. Preheat grill to medium-high heat. \n2. In a bowl, mix softened butter, lemon juice, minced garlic, chopped fresh herbs, salt, and black pepper. \n3. Season salmon fillets with salt and pepper. \n4. Grill salmon for 4-5 minutes per side until cooked through. \n5. Top each fillet with a spoonful of lemon-herb butter before serving.",
         "category": "main dish",
         "rating": 4
-    },
-    "Test Recipe": {
-        "recipe_name": "Test Recipe",
-        "ingredients": "Ingredient 1, Ingredient 2",
-        "instructions": "Step 1, Step 2",
-        "category": "test",
-        "rating": 4
     }
 }
