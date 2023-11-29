@@ -1,6 +1,7 @@
 import unittest
 import tkinter as tk
 from tkinter import Tk
+import json
 from unittest.mock import patch, MagicMock
 from SimpleRecipeManager import RecipeGUI
 from unittest import TestCase, mock
@@ -29,18 +30,39 @@ class TestRecipeGUI(unittest.TestCase):
 
                 # Ensure the open_form method is called with the correct parameters
                 mock_open_form.assert_called_once_with()
+    def test_add_recipe_to_database(self):
+            # Mock a recipe to add to the database
+            new_recipe = {
+                "recipe_name": "Test Recipe",
+                "ingredients": "Ingredient 1, Ingredient 2",
+                "instructions": "Step 1, Step 2",
+                "category": "test",
+                "rating": 4
+            }
+
+            # Add the recipe to the database
+            added_recipe = self.app.add_to_database(new_recipe)
+            # Check if the recipe was added successfully by reading the database file
+            with open("Recipe_database.json", "r") as data_file:
+                data = json.load(data_file)
+                self.assertIn("Test Recipe", data)  # Check if the recipe name exists in the database
+                self.assertEqual(data["Test Recipe"], new_recipe)  # Check if the added recipe matches the expected one
+            with open("Recipe_database.json", "w") as data_file:
+                 json.dump(self.app.recipes, data_file, indent=4)
+    
+
     @patch("tkinter.filedialog.asksaveasfilename", return_value="./TestTemp/test_export.json")
     @patch("tkinter.messagebox.showinfo")
     def test_export_recipes(self, mock_showinfo, mock_file_dialog):
         # Test exporting recipes
         self.app.recipes = {
-    "Guacamole": {
+        "Guacamole": {
         "recipe_name": "Guacamole",
         "ingredients": "Avocado\nTomato\nOnion\nLime Juice\nSalt\nCilantro",
         "instructions": "1. Mash avocados in a bowl. \n2. Add diced tomatoes, finely chopped onions, lime juice, salt, and chopped cilantro. \n3. Mix ingredients thoroughly. \n4. Serve with chips or use as a topping.",
         "category": "appetizer",
         "rating": 4
-    }}
+        }}
         initial_recipe_count = len(self.app.recipes)
         
 
