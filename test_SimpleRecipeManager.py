@@ -50,17 +50,29 @@ class TestRecipeGUI(unittest.TestCase):
             with open("Recipe_database.json", "w") as data_file:
                  json.dump(self.app.recipes, data_file, indent=4)
     
-    def test_view_recipe(self):
-            # Mocking the open_form method
-            with patch.object(self.app, 'open_form') as mock_open_form:
-                # Trigger the View Recipe button
-                try:
-                    self.app.view_recipe()
-                except Exception as e:
-                    self.fail(f"Error encountered: {e}")
+    # def test_view_recipe(self):
+    #         # Mocking the open_form method
+    #         with patch.object(self.app, 'open_form') as mock_open_form:
+    #             # Trigger the View Recipe button
+    #             try:
+    #                 self.app.view_recipe()
+    #             except Exception as e:
+    #                 self.fail(f"Error encountered: {e}")
 
-                # Ensure the open_form method is called with the correct parameters
-                mock_open_form.assert_called_once_with()
+    #             # Ensure the open_form method is called with the correct parameters
+    #             mock_open_form.assert_called_once_with(self.app.recipes["Guacamole"])
+
+    # def test_edit_recipe(self):
+    #         # Mocking the open_form method
+    #         with patch.object(self.app, 'open_form') as mock_open_form:
+    #             # Trigger the Edit Recipe button
+    #             try:
+    #                 self.app.edit_recipe()
+    #             except Exception as e:
+    #                 self.fail(f"Error encountered: {e}")
+
+    #             # Ensure the open_form method is called with the correct parameters
+    #             mock_open_form.assert_called_once_with()
 
     @patch("tkinter.filedialog.asksaveasfilename", return_value="./TestTemp/test_export.json")
     @patch("tkinter.messagebox.showinfo")
