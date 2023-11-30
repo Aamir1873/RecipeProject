@@ -3,6 +3,7 @@ import tkinter as tk
 from tkinter import Tk
 from unittest.mock import patch, MagicMock
 from SimpleRecipeManager import RecipeGUI
+import json
 
 # The JSON data of recipes
 recipes_data = {
@@ -104,6 +105,7 @@ class TestRecipeGUI(unittest.TestCase):
         "instructions": "Prince does dis, and he became trash!",
         "rating": 3
         }
+        prev = self.app.recipes
         self.app.add_to_database(new_recipe)
         new_recipe_details = {
             "recipe_name": "Test Recipe",
@@ -111,7 +113,6 @@ class TestRecipeGUI(unittest.TestCase):
             "instructions": "I am in your repository",
             "rating": 3
         }
-        self.app.initialize_data()
         # Mock the open_form method and simulate successful edit
         with patch.object(self.app, 'open_form') as mock_open_form:
             mock_open_form.return_value = new_recipe_details
@@ -122,6 +123,8 @@ class TestRecipeGUI(unittest.TestCase):
                 self.app.update_recipe_list()
                 self.app.initialize_data()
                 self.assertNotEqual(self.app.recipes["Test Recipe"], new_recipe_details)
+        with open("Recipe_database.json", "w") as data_file:
+            json.dump(prev, data_file, indent=4)
 
 if __name__ == "__main__":
     unittest.main()
