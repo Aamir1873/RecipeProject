@@ -54,5 +54,19 @@
         "instructions": "1. Preheat grill to medium-high heat. \n2. In a bowl, mix softened butter, lemon juice, minced garlic, chopped fresh herbs, salt, and black pepper. \n3. Season salmon fillets with salt and pepper. \n4. Grill salmon for 4-5 minutes per side until cooked through. \n5. Top each fillet with a spoonful of lemon-herb butter before serving.",
         "category": "main dish",
         "rating": 4
+    },
+    "Chicken Stir-Fry":{
+        "recipe_name": "Chicken Stir-Fry",
+        "ingredients": "Chicken Breast\nVegetables (bell peppers, broccoli, carrots)\nSoy Sauce\nSesame Oil\nGarlic\nGinger\nVegetable Oil\nSalt\nBlack Pepper",
+        "instructions": "1. Cut chicken into bite-sized pieces and season with salt and black pepper.\n2. Heat vegetable oil in a wok or skillet over medium-high heat.\n3. Stir-fry chicken until browned and cooked through.\n4. Add chopped garlic and ginger to the pan.\n5. Toss in sliced vegetables and stir-fry until tender-crisp.\n6. Drizzle with soy sauce and sesame oil, toss to combine.",
+        "category": "main dish",
+        "rating": 2
+    },
+    "Berry Yogurt Parfait": {
+        "recipe_name": "Berry Yogurt Parfait",
+        "ingredients": "Greek Yogurt\nMixed Berries (strawberries, blueberries, raspberries)\nGranola\nHoney\nMint Leaves (optional)",
+        "instructions": "1. In a glass or bowl, layer Greek yogurt at the bottom.\n2. Add a layer of mixed berries on top of the yogurt.\n3. Sprinkle granola over the berries for crunch.\n4. Drizzle honey over the granola layer.\n5. Repeat the layers. Top with mint leaves if desired.",
+        "category": "dessert",
+        "rating": 3
     }
 }
