@@ -1,0 +1,9 @@
+{
+    "Guacamole": {
+        "recipe_name": "Guacamole",
+        "ingredients": "Avocado\nTomato\nOnion\nLime Juice\nSalt\nCilantro",
+        "instructions": "1. Mash avocados in a bowl. \n2. Add diced tomatoes, finely chopped onions, lime juice, salt, and chopped cilantro. \n3. Mix ingredients thoroughly. \n4. Serve with chips or use as a topping.",
+        "category": "appetizer",
+        "rating": 4
+    }
+}

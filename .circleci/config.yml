@@ -1,0 +1,20 @@
+
+version: 2
+jobs:
+  build:
+    docker:
+      - image: circleci/python:3.7
+
+    working_directory: ~/repo
+
+    steps:
+      - checkout
+      - run:
+          name: Install Dependencies
+          command: pip install -r requirements.txt
+      - run:
+          name: run test
+          command: pytest -v -cov=SimpleRecipeManager test_SimpleRecipeManager.py
+      - run:
+          name: run test2
+          command: pytest -v -cov=SimpleRecipeManager integrationtest_SimpleRecipeManager.py
