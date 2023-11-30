@@ -19,9 +19,6 @@ class RecipeGUI:
 
         except FileNotFoundError:
             pass
-    def clear_recipe_list(self):
-        self.recipes = {}  # Reset the recipes dictionary
-        self.update_recipe_list()  # Clear the recipe list widget
 
     def create_widgets(self):
         # GUI creation code here...
