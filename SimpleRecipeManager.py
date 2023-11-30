@@ -75,11 +75,11 @@ class RecipeGUI:
             form_window.title("View Recipe Form")
         else:
             form_window.title("Edit Recipe Form")
-        form_window.geometry("600x620")
+        form_window.geometry("600x630")
 
         recipe_name_label = tk.Label(form_window, text="Recipe Name:")
         recipe_name_label.pack()
-        recipe_name_entry = ttk.Entry(form_window)
+        recipe_name_entry = ttk.Entry(form_window, width=40)
         recipe_name_entry.pack()
 
         ingredients_frame = tk.Frame(form_window, highlightbackground="gray", highlightthickness=1)
@@ -107,7 +107,7 @@ class RecipeGUI:
         rating_entry.pack()
 
         submit_button = ttk.Button(form_window, text="Submit", command=submit_form)
-        submit_button.pack()
+        submit_button.pack(pady = 5)
 
         #basically for viewing
         if recipe:  
