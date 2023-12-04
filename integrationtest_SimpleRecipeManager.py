@@ -10,7 +10,7 @@ class TestRecipeGUIIntegration(unittest.TestCase):
         self.mock_tk = self.patcher.start()
         self.app = RecipeGUI(self.mock_tk.return_value)
 
-
+##hi
     @patch('tkinter.messagebox.askyesno', return_value=True)
     def test_add_and_delete_recipe(self, mock_askyesno):
         # Add a recipe
